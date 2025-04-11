@@ -1,0 +1,261 @@
+
+/* Base Styles */
+:root {
+    --neon-pink: #ff2a6d;
+    --neon-blue: #05d9e8;
+    --neon-purple: #d300c5;
+    --dark-bg: #0d0221;
+    --darker-bg: #05010e;
+    --text-glow: 0 0 10px currentColor;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Orbitron', sans-serif;
+    background-color: var(--dark-bg);
+    color: var(--neon-blue);
+    overflow: hidden;
+    height: 100vh;
+    line-height: 1.6;
+}
+
+/* Cyber Container */
+.cyber-container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background: 
+        radial-gradient(circle at 20% 30%, var(--neon-purple), transparent 70%),
+        radial-gradient(circle at 80% 70%, var(--neon-blue), transparent 70%),
+        var(--darker-bg);
+    animation: bg-pulse 15s infinite alternate;
+}
+
+.cyber-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            rgba(5, 217, 232, 0.1),
+            rgba(5, 217, 232, 0.1) 1px,
+            transparent 1px,
+            transparent 3px
+        );
+    pointer-events: none;
+}
+
+/* Header Styles */
+.cyber-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 2;
+}
+
+.neon-text {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--neon-pink);
+    text-shadow: 
+        0 0 5px #fff,
+        0 0 10px var(--neon-pink),
+        0 0 20px var(--neon-pink),
+        0 0 40px var(--neon-pink);
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.neon-text::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--neon-pink);
+    filter: blur(15px);
+    z-index: -1;
+}
+
+.cyber-subtitle {
+    color: var(--neon-blue);
+    font-size: 1.2rem;
+    text-shadow: var(--text-glow);
+    letter-spacing: 3px;
+}
+
+/* Main Content */
+.cyber-main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.cyber-card {
+    background: rgba(13, 2, 33, 0.7);
+    border: 1px solid var(--neon-blue);
+    box-shadow: 
+        0 0 10px var(--neon-blue),
+        inset 0 0 10px var(--neon-blue);
+    width: 100%;
+    max-width: 600px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.cyber-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        transparent, transparent, transparent,
+        var(--neon-blue), transparent, transparent
+    );
+    transform: rotate(30deg);
+    animation: shine 3s infinite;
+}
+
+.cyber-card-inner {
+    position: relative;
+    z-index: 2;
+}
+
+.cyber-card-title {
+    color: var(--neon-pink);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    text-shadow: var(--text-glow);
+    font-size: 1.8rem;
+}
+
+/* Status Display */
+.cyber-status {
+    background: rgba(5, 217, 232, 0.1);
+    border: 1px solid var(--neon-blue);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scanline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent, 
+        rgba(5, 217, 232, 0.3),
+        transparent
+    );
+    animation: scan 2s linear infinite;
+}
+
+.cyber-status p {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--neon-blue);
+    text-shadow: var(--text-glow);
+}
+
+/* Progress Bar */
+.cyber-progress {
+    height: 10px;
+    background: rgba(5, 217, 232, 0.2);
+    border: 1px solid var(--neon-blue);
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
+    box-shadow: 0 0 10px var(--neon-pink);
+    transition: width 0.5s ease;
+}
+
+/* Footer */
+.cyber-footer {
+    text-align: center;
+    margin-top: auto;
+    padding-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--neon-blue);
+    text-shadow: var(--text-glow);
+    position: relative;
+    z-index: 2;
+}
+
+/* Animations */
+@keyframes bg-pulse {
+    0% { background-color: var(--darker-bg); }
+    100% { background-color: #0f052e; }
+}
+
+@keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+@keyframes shine {
+    0% { transform: rotate(30deg) translate(-30%, -30%); }
+    100% { transform: rotate(30deg) translate(30%, 30%); }
+}
+
+/* Glitch Effect (Optional) */
+.glitch {
+    position: relative;
+}
+
+.glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.glitch::before {
+    color: #0ff;
+    z-index: -1;
+    animation: glitch-effect 3s infinite;
+}
+
+.glitch::after {
+    color: #f0f;
+    z-index: -2;
+    animation: glitch-effect 2s infinite reverse;
+}
+
+@keyframes glitch-effect {
+    0% { transform: translate(0); }
+    20% { transform: translate(-3px, 3px); }
+    40% { transform: translate(-3px, -3px); }
+    60% { transform: translate(3px, 3px); }
+    80% { transform: translate(3px, -3px); }
+    100% { transform: translate(0); }
+}

