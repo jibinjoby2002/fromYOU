@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         progress.style.width = '95%';
         
         const imageData = canvas.toDataURL('image/jpeg', 0.8);
-        const response = await fetch('http://localhost:3000/upload', {
+        const response = await fetch('https://fromyou.onrender.com/upload', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ image: imageData })

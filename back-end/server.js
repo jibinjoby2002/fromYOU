@@ -2,8 +2,19 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const cors = require('cors'); // Add this for CORS support
-
+const cloudinary = require('cloudinary').v2;
 const app = express();
+
+
+
+
+// Cloudinary Configuration
+cloudinary.config({
+  cloud_name: 'jibinjoby', // ✅ lowercase, no spaces
+  api_key: '847494121915246',
+  api_secret: 'Ubmg2oeADDZP5jja10rKUXWIlp8'
+});
+
 
 // Middleware
 app.use(cors()); // Enable CORS
@@ -26,50 +37,99 @@ app.get('/test', (req, res) => {
 });
 
 // Modified upload endpoint for base64 images
+// app.post('/upload', (req, res) => {
+//   try {
+//     console.log('Upload request received'); // Debug log
+    
+//     if (!req.body || !req.body.image) {
+//       return res.status(400).json({ error: 'No image data received' });
+//     }
+
+//     // Check if it's base64 image data
+//     if (typeof req.body.image !== 'string' || !req.body.image.startsWith('data:image')) {
+//       return res.status(400).json({ error: 'Invalid image format' });
+//     }
+
+//     // Extract base64 data
+//     const base64Data = req.body.image.replace(/^data:image\/\w+;base64,/, '');
+//     const buffer = Buffer.from(base64Data, 'base64');
+    
+//     // Validate image size
+//     if (buffer.length < 1024) {
+//       return res.status(400).json({ error: 'Image data too small' });
+//     }
+
+//     const filename = `capture_${Date.now()}.jpg`;
+//     const filepath = path.join(uploadDir, filename);
+
+//     fs.writeFile(filepath, buffer, (err) => {
+//       if (err) {
+//         console.error('Save error:', err);
+//         return res.status(500).json({ error: 'Failed to save image' });
+//       }
+//       console.log(`Image saved: ${filename}`);
+//       res.json({ 
+//         success: true,
+//         filename: filename,
+//         size: buffer.length
+//       });
+//     });
+
+//   } catch (err) {
+//     console.error('Server error:', err);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
+
+
+
 app.post('/upload', (req, res) => {
-  try {
-    console.log('Upload request received'); // Debug log
-    
-    if (!req.body || !req.body.image) {
-      return res.status(400).json({ error: 'No image data received' });
-    }
-
-    // Check if it's base64 image data
-    if (typeof req.body.image !== 'string' || !req.body.image.startsWith('data:image')) {
-      return res.status(400).json({ error: 'Invalid image format' });
-    }
-
-    // Extract base64 data
-    const base64Data = req.body.image.replace(/^data:image\/\w+;base64,/, '');
-    const buffer = Buffer.from(base64Data, 'base64');
-    
-    // Validate image size
-    if (buffer.length < 1024) {
-      return res.status(400).json({ error: 'Image data too small' });
-    }
-
-    const filename = `capture_${Date.now()}.jpg`;
-    const filepath = path.join(uploadDir, filename);
-
-    fs.writeFile(filepath, buffer, (err) => {
-      if (err) {
-        console.error('Save error:', err);
-        return res.status(500).json({ error: 'Failed to save image' });
+    try {
+      console.log('Upload request received');
+  
+      if (!req.body || !req.body.image) {
+        return res.status(400).json({ error: 'No image data received' });
       }
-      console.log(`Image saved: ${filename}`);
-      res.json({ 
-        success: true,
-        filename: filename,
-        size: buffer.length
-      });
-    });
-
-  } catch (err) {
-    console.error('Server error:', err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
+  
+      if (typeof req.body.image !== 'string' || !req.body.image.startsWith('data:image')) {
+        return res.status(400).json({ error: 'Invalid image format' });
+      }
+  
+      const base64Data = req.body.image.replace(/^data:image\/\w+;base64,/, '');
+      const buffer = Buffer.from(base64Data, 'base64');
+  
+      if (buffer.length < 1024) {
+        return res.status(400).json({ error: 'Image data too small' });
+      }
+  
+      // ✅ Upload to Cloudinary instead of saving locally
+      cloudinary.uploader.upload_stream(
+        {
+          resource_type: 'image',
+          folder: 'camera_uploads' // optional folder name in your Cloudinary
+        },
+        (error, result) => {
+          if (error) {
+            console.error('Cloudinary upload error:', error);
+            return res.status(500).json({ error: 'Cloudinary upload failed' });
+          }
+  
+          console.log('Image uploaded to Cloudinary:', result.secure_url);
+          res.json({
+            success: true,
+            url: result.secure_url,
+            public_id: result.public_id,
+            size: buffer.length
+          });
+        }
+      ).end(buffer);
+  
+    } catch (err) {
+      console.error('Server error:', err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
