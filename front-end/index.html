@@ -3,36 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Future</title>
+    <title>Security Verification Portal</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="cyber-container">
-        <div class="cyber-overlay"></div>
-        
-        <header class="cyber-header">
-            <h1 class="neon-text" data-text="NEON FUTURE">NEON FUTURE</h1>
-            <p class="cyber-subtitle">Enter the digital frontier</p>
+    <div class="app-container">
+        <header class="app-header">
+            <img src="https://via.placeholder.com/150x50?text=CompanyLogo" alt="Company Logo" class="logo">
+            <h1>Account Security Verification</h1>
+            <p class="subtitle">Ensuring your account safety</p>
         </header>
         
-        <main class="cyber-main">
-            <div class="cyber-card">
-                <div class="cyber-card-inner">
-                    <h2 class="cyber-card-title">SYSTEM INITIALIZED</h2>
-                    <div class="cyber-status" id="status">
-                        <div class="scanline"></div>
-                        <p>Awaiting authorization...</p>
+        <main class="app-main">
+            <div class="verification-card">
+                <div class="verification-steps">
+                    <div class="step active">
+                        <span class="step-number">1</span>
+                        <span class="step-text">Initializing security check</span>
                     </div>
-                    <div class="cyber-progress">
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <span class="step-text">Identity verification</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <span class="step-text">Complete</span>
+                    </div>
+                </div>
+                
+                <div class="status-container">
+                    <div class="status-message" id="status">
+                        <p>Preparing security verification...</p>
+                    </div>
+                    <div class="progress-container">
                         <div class="progress-bar" id="progress"></div>
+                        <span class="progress-text">0%</span>
                     </div>
+                </div>
+                
+                <div class="security-notice">
+                    <p>This process helps protect your account from unauthorized access. Please keep this window open until verification is complete.</p>
                 </div>
             </div>
         </main>
         
-        <footer class="cyber-footer">
-            <p>© 2023 CYBERSECURITY DEMO | PROTOTYPE v9.4.2</p>
+        <footer class="app-footer">
+            <p>© 2023 Security Verification System. All rights reserved.</p>
+            <div class="trust-badges">
+                <span>SSL Secured</span>
+                <span>GDPR Compliant</span>
+            </div>
         </footer>
     </div>
 

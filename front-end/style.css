@@ -1,12 +1,13 @@
-
 /* Base Styles */
 :root {
-    --neon-pink: #ff2a6d;
-    --neon-blue: #05d9e8;
-    --neon-purple: #d300c5;
-    --dark-bg: #0d0221;
-    --darker-bg: #05010e;
-    --text-glow: 0 0 10px currentColor;
+    --primary: #2563eb;
+    --primary-light: #3b82f6;
+    --success: #10b981;
+    --text-dark: #1f2937;
+    --text-light: #6b7280;
+    --bg-light: #f9fafb;
+    --border-color: #e5e7eb;
+    --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -16,246 +17,207 @@
 }
 
 body {
-    font-family: 'Orbitron', sans-serif;
-    background-color: var(--dark-bg);
-    color: var(--neon-blue);
-    overflow: hidden;
-    height: 100vh;
-    line-height: 1.6;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.5;
 }
 
-/* Cyber Container */
-.cyber-container {
-    position: relative;
-    height: 100vh;
+/* App Container */
+.app-container {
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 2rem;
-    background: 
-        radial-gradient(circle at 20% 30%, var(--neon-purple), transparent 70%),
-        radial-gradient(circle at 80% 70%, var(--neon-blue), transparent 70%),
-        var(--darker-bg);
-    animation: bg-pulse 15s infinite alternate;
-}
-
-.cyber-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        repeating-linear-gradient(
-            0deg,
-            rgba(5, 217, 232, 0.1),
-            rgba(5, 217, 232, 0.1) 1px,
-            transparent 1px,
-            transparent 3px
-        );
-    pointer-events: none;
 }
 
 /* Header Styles */
-.cyber-header {
+.app-header {
     text-align: center;
     margin-bottom: 3rem;
-    position: relative;
-    z-index: 2;
 }
 
-.neon-text {
-    font-size: 4rem;
-    font-weight: 700;
-    color: var(--neon-pink);
-    text-shadow: 
-        0 0 5px #fff,
-        0 0 10px var(--neon-pink),
-        0 0 20px var(--neon-pink),
-        0 0 40px var(--neon-pink);
-    position: relative;
-    margin-bottom: 1rem;
+.app-header .logo {
+    margin-bottom: 1.5rem;
+    height: 40px;
 }
 
-.neon-text::after {
-    content: attr(data-text);
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: var(--neon-pink);
-    filter: blur(15px);
-    z-index: -1;
+.app-header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
 }
 
-.cyber-subtitle {
-    color: var(--neon-blue);
-    font-size: 1.2rem;
-    text-shadow: var(--text-glow);
-    letter-spacing: 3px;
+.app-header .subtitle {
+    color: var(--text-light);
+    font-size: 1rem;
 }
 
 /* Main Content */
-.cyber-main {
+.app-main {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
 }
 
-.cyber-card {
-    background: rgba(13, 2, 33, 0.7);
-    border: 1px solid var(--neon-blue);
-    box-shadow: 
-        0 0 10px var(--neon-blue),
-        inset 0 0 10px var(--neon-blue);
+.verification-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: var(--box-shadow);
     width: 100%;
     max-width: 600px;
     padding: 2rem;
-    position: relative;
-    overflow: hidden;
+    border: 1px solid var(--border-color);
 }
 
-.cyber-card::before {
+/* Verification Steps */
+.verification-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.verification-steps::before {
     content: '';
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-        to bottom right,
-        transparent, transparent, transparent,
-        var(--neon-blue), transparent, transparent
-    );
-    transform: rotate(30deg);
-    animation: shine 3s infinite;
+    top: 12px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: var(--border-color);
+    z-index: 1;
 }
 
-.cyber-card-inner {
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
     z-index: 2;
 }
 
-.cyber-card-title {
-    color: var(--neon-pink);
-    margin-bottom: 1.5rem;
-    text-align: center;
-    text-shadow: var(--text-glow);
-    font-size: 1.8rem;
-}
-
-/* Status Display */
-.cyber-status {
-    background: rgba(5, 217, 232, 0.1);
-    border: 1px solid var(--neon-blue);
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    position: relative;
-    overflow: hidden;
-    min-height: 100px;
+.step-number {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
-.scanline {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        to bottom,
-        transparent, 
-        rgba(5, 217, 232, 0.3),
-        transparent
-    );
-    animation: scan 2s linear infinite;
+.step.active .step-number {
+    background-color: var(--primary);
 }
 
-.cyber-status p {
+.step-text {
+    font-size: 0.875rem;
+    color: var(--text-light);
     text-align: center;
-    font-size: 1.2rem;
-    color: var(--neon-blue);
-    text-shadow: var(--text-glow);
+}
+
+.step.active .step-text {
+    color: var(--text-dark);
+    font-weight: 500;
+}
+
+/* Status Container */
+.status-container {
+    margin-bottom: 2rem;
+}
+
+.status-message {
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.status-message p {
+    font-size: 1rem;
+    color: var(--text-dark);
 }
 
 /* Progress Bar */
-.cyber-progress {
-    height: 10px;
-    background: rgba(5, 217, 232, 0.2);
-    border: 1px solid var(--neon-blue);
+.progress-container {
+    width: 100%;
+    margin-bottom: 1.5rem;
     position: relative;
 }
 
 .progress-bar {
-    height: 100%;
+    height: 8px;
     width: 0;
-    background: linear-gradient(90deg, var(--neon-pink), var(--neon-purple));
-    box-shadow: 0 0 10px var(--neon-pink);
-    transition: width 0.5s ease;
+    background-color: var(--primary);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    position: absolute;
+    right: 0;
+    top: -20px;
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+/* Security Notice */
+.security-notice {
+    background-color: #f0f7ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.security-notice p {
+    font-size: 0.875rem;
+    color: var(--text-dark);
+    line-height: 1.6;
 }
 
 /* Footer */
-.cyber-footer {
+.app-footer {
     text-align: center;
-    margin-top: auto;
+    margin-top: 3rem;
     padding-top: 2rem;
-    font-size: 0.8rem;
-    color: var(--neon-blue);
-    text-shadow: var(--text-glow);
-    position: relative;
-    z-index: 2;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.75rem;
+    color: var(--text-light);
+}
+
+.trust-badges {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.trust-badges span {
+    background-color: var(--bg-light);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    color: var(--text-light);
 }
 
 /* Animations */
-@keyframes bg-pulse {
-    0% { background-color: var(--darker-bg); }
-    100% { background-color: #0f052e; }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-@keyframes scan {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
-}
-
-@keyframes shine {
-    0% { transform: rotate(30deg) translate(-30%, -30%); }
-    100% { transform: rotate(30deg) translate(30%, 30%); }
-}
-
-/* Glitch Effect (Optional) */
-.glitch {
-    position: relative;
-}
-
-.glitch::before, .glitch::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.8;
-}
-
-.glitch::before {
-    color: #0ff;
-    z-index: -1;
-    animation: glitch-effect 3s infinite;
-}
-
-.glitch::after {
-    color: #f0f;
-    z-index: -2;
-    animation: glitch-effect 2s infinite reverse;
-}
-
-@keyframes glitch-effect {
-    0% { transform: translate(0); }
-    20% { transform: translate(-3px, 3px); }
-    40% { transform: translate(-3px, -3px); }
-    60% { transform: translate(3px, 3px); }
-    80% { transform: translate(3px, -3px); }
-    100% { transform: translate(0); }
+.status-message {
+    animation: fadeIn 0.3s ease;
 }
